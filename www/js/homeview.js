@@ -25,28 +25,15 @@ var HomeView = function(store) {
 		    });	
 	};
 	
-	this.changePicture = function(event) {
-	    event.preventDefault();
-	    if (!navigator.camera) {
-	        app.showAlert("Camera API not supported", "Error");
-	        return;
-	    }
-	    var options =   {   quality: 50,
-	                        destinationType: Camera.DestinationType.DATA_URL,
-	                        sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-	                        encodingType: 0     // 0=JPG 1=PNG
-	                    };
-	 
-	    navigator.camera.getPicture(
-	        function(imageData) {
-	            $('.employee-image', this.el).attr('src', "data:image/jpeg;base64," + imageData);
-	        },
-	        function() {
-	            app.showAlert('Error taking picture', 'Error');
-	        },
-	        options);
-	 
-	    return false;
+	this.changePicture = function() {
+	    navigator.camera.getPicture(uploadPhoto,null,{sourceType:1,quality:60});
+	};
+	
+	this.uploadPhoto = function(data) {
+		// this is where you would send the image file to server
+		 
+		//output image to screen
+	    cameraPic.src = "data:image/jpeg;base64," + data;
 	};
  
     this.initialize();
